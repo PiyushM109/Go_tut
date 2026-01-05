@@ -37,11 +37,32 @@ func (l *LinkedList) Print() {
 	}
 	fmt.Println("nil")
 }
+func (l *LinkedList) ReverseDLL() {
+	if l.head == nil || l.head.next == nil {
+		return // nothing to reverse
+	}
+
+	curr := l.head
+	var prev *Node = nil
+
+	for curr != nil {
+		next := curr.next
+		curr.next = prev
+		curr.prev = next
+		prev = curr
+		curr = next
+	}
+
+	l.head = prev
+}
 
 func main() {
 	list := LinkedList{}
 	list.InsertAtEnd(10)
 	list.InsertAtEnd(20)
 	list.InsertAtEnd(30)
+	list.Print()
+
+	list.ReverseDLL()
 	list.Print()
 }
